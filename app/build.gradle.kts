@@ -40,17 +40,21 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    packagingOptions {
+        resources {
+            excludes += setOf(
+                "META-INF/INDEX.LIST",
+                "META-INF/io.netty.versions.properties",
+                "META-INF/DEPENDENCIES"
+            )
+        }
+    }
 
     configurations.all {
         exclude(group = "com.android.support", module = "support-core-ui")
         exclude(group = "com.android.support", module = "support-compat")
     }
 
-    packagingOptions {
-        exclude ("META-INF/INDEX.LIST")
-        exclude ("META-INF/io.netty.versions.properties")
-        exclude ("META-INF/DEPENDENCIES")
-    }
     sourceSets["main"].assets.srcDirs("src/main/assets")
 }
 
