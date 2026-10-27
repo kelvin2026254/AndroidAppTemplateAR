@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
@@ -7,13 +8,13 @@
         android:title="@string/camera" />
 
     <item
+        android:id="@+id/navigation_map"
+        android:icon="@android:drawable/ic_menu_mapmode"
+        android:title="Mapa" />
+
+    <item
         android:id="@+id/navigation_changeobject"
         android:icon="@drawable/ic_change_foreground"
         android:title="@string/change" />
-
-<!--    <item
-        android:id="@+id/navigation_profile"
-        android:icon="@drawable/ic_profile_foreground"
-        android:title="@string/profile" />-->
 
 </menu>

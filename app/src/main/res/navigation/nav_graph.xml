@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -12,14 +13,14 @@
         tools:layout="@layout/fragment_camera" />
 
     <fragment
+        android:id="@+id/navigation_map"
+        android:name="com.ifpr.androidapptemplatear.ui.MapFragment"
+        android:label="Mapa" />
+
+    <fragment
         android:id="@+id/navigation_changeobject"
         android:name="com.ifpr.androidapptemplatear.ui.ChangeObjectFragment"
         android:label="@string/change"
         tools:layout="@layout/fragment_changeobject" />
 
-    <fragment
-        android:id="@+id/navigation_profile"
-        android:name="com.ifpr.androidapptemplatear.ui.ProfileFragment"
-        android:label="@string/profile"
-        tools:layout="@layout/fragment_profile" />
 </navigation>

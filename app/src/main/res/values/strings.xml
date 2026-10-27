@@ -1,14 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Caçador de Monstros</string>
-    <string name="action_settings">Settings</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-    <string name="template_ar">Template AR</string>
-    <string name="thumbnail">example</string>
-    <string name="camera">camera</string>
-    <string name="change">change</string>
-    <string name="profile">profile</string>
+    <string name="action_settings">Configurações</string>
+
+    <string name="first_fragment_label">Primeiro fragmento</string>
+    <string name="second_fragment_label">Segundo fragmento</string>
+    <string name="next">Próximo</string>
+    <string name="previous">Anterior</string>
+
+    <string name="template_ar">Caçador de Monstros</string>
+    <string name="thumbnail">Prévia do monstro</string>
+    <string name="camera">Câmera</string>
+    <string name="change">Monstros</string>
+    <string name="profile">Perfil</string>
 </resources>

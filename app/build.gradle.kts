@@ -72,6 +72,8 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.glide)
     implementation(libs.firebase.database.ktx)
+    implementation("com.google.android.gms:play-services-location:21.3.0")
+    implementation("com.google.android.gms:play-services-maps:19.2.0")
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.junit)
