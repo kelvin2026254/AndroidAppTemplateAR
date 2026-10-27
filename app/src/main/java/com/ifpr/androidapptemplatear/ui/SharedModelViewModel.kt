@@ -1,12 +1,20 @@
-package com.ifpr.androidapptemplatear.ui
+package com.ifpr.androidapptemplatear
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class SharedModelViewModel : ViewModel() {
-    val selectedModel = MutableLiveData<String>()
+
+    private val _selectedModel =
+        MutableLiveData("02_ogro_guerra.glb")
+
+    val selectedModel: LiveData<String>
+        get() = _selectedModel
 
     fun selectModel(modelPath: String) {
-        selectedModel.value = modelPath
+        if (modelPath.isNotBlank()) {
+            _selectedModel.value = modelPath
+        }
     }
 }

@@ -1,4 +1,3 @@
-
 package com.ifpr.androidapptemplatear.ui
 
 import android.Manifest
@@ -46,11 +45,16 @@ class CameraFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentCameraBinding.inflate(inflater, container, false)
+        _binding = FragmentCameraBinding.inflate(
+            inflater,
+            container,
+            false
+        )
 
         monsterSoundManager = MonsterSoundManager(requireContext())
-        sharedViewModel =
-            ViewModelProvider(requireActivity())[SharedModelViewModel::class.java]
+
+        sharedViewModel = ViewModelProvider(requireActivity())
+            .get(SharedModelViewModel::class.java)
 
         return binding.root
     }
@@ -58,20 +62,21 @@ class CameraFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        sharedViewModel.selectedModel.observe(viewLifecycleOwner) { path ->
-            if (!path.isNullOrBlank()) {
-                currentModelFile = path
-                if (::sceneView.isInitialized) {
-                    loadModel(currentModelFile)
-                }
-            }
-        }
-
         sceneView = view.findViewById<ArSceneView>(R.id.sceneView).apply {
             lightEstimationMode = Config.LightEstimationMode.DISABLED
         }
 
         placeButton = view.findViewById(R.id.place)
+
+        sharedViewModel.selectedModel.observe(viewLifecycleOwner) { path ->
+            if (!path.isNullOrBlank()) {
+                currentModelFile = path
+
+                if (::sceneView.isInitialized) {
+                    loadModel(currentModelFile)
+                }
+            }
+        }
 
         placeButton.setOnClickListener {
             if (::modelNode.isInitialized) {
@@ -97,7 +102,6 @@ class CameraFragment : Fragment() {
 
         sceneView.planeRenderer.isVisible = false
 
-        // Som de teste: toca ao posicionar o modelo.
         monsterSoundManager.playMonsterSound()
     }
 
@@ -123,7 +127,11 @@ class CameraFragment : Fragment() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        super.onRequestPermissionsResult(
+            requestCode,
+            permissions,
+            grantResults
+        )
 
         if (requestCode == cameraPermissionCode) {
             if (
@@ -148,7 +156,7 @@ class CameraFragment : Fragment() {
     }
 
     private fun loadModel(fileName: String) {
-        if (!::sceneView.isInitialized) return
+        if (!::sceneView.isInitialized || _binding == null) return
 
         if (::modelNode.isInitialized) {
             sceneView.removeChild(modelNode)
@@ -162,10 +170,13 @@ class CameraFragment : Fragment() {
             isScaleEditable = false
 
             loadModelGlbAsync(
-                glbFileLocation = getFilePath(requireContext(), fileName),
+                glbFileLocation = getFilePath(
+                    requireContext(),
+                    fileName
+                ),
                 centerOrigin = Position(0f, 0f, 1f)
             ) {
-                if (_binding != null) {
+                if (_binding != null && ::sceneView.isInitialized) {
                     sceneView.planeRenderer.isVisible = true
                 }
             }
@@ -174,9 +185,12 @@ class CameraFragment : Fragment() {
         sceneView.addChild(modelNode)
     }
 
-    private fun getFilePath(context: Context, fileName: String): String {
+    private fun getFilePath(
+        context: Context,
+        fileName: String
+    ): String {
         return try {
-            context.assets.open(fileName).close()
+            context.assets.open(fileName).use { }
             fileName
         } catch (e: IOException) {
             val internalFile = File(context.filesDir, fileName)
@@ -190,7 +204,10 @@ class CameraFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        monsterSoundManager.release()
+        if (::monsterSoundManager.isInitialized) {
+            monsterSoundManager.release()
+        }
+
         _binding = null
         super.onDestroyView()
     }
